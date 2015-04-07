@@ -67,6 +67,28 @@ def welcome():
   resp.say("Welcome to Twilio")
   return str(resp)
 
+@app.route('/token_subaccount', methods=['GET', 'POST'])
+def custom_token():
+  account_sid = request.values.get('ACCOUNT_SID')
+  auth_token = request.values.get('AUTH_TOKEN')
+  app_sid = os.environ.get("APP_SID", APP_SID)
+
+  capability = TwilioCapability(account_sid, auth_token)
+
+  # This allows outgoing connections to TwiML application
+  if request.values.get('allowOutgoing') != 'false':
+     capability.allow_client_outgoing(app_sid)
+
+  # This allows incoming connections to client (if specified)
+  client = request.values.get('client')
+  if client != None:
+    capability.allow_client_incoming(client)
+
+  # This returns a token to use with Twilio based on the account and capabilities defined above
+  return capability.generate()
+  
+  
+
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
   app.run(host='0.0.0.0', port=port, debug=True)
