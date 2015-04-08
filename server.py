@@ -71,7 +71,7 @@ def welcome():
 def custom_token():
   account_sid = request.values.get('ACCOUNT_SID')
   auth_token = request.values.get('AUTH_TOKEN')
-  app_sid = os.environ.get("APP_SID", APP_SID)
+  app_sid = request.values.get('APP_SID')
 
   capability = TwilioCapability(account_sid, auth_token)
 
