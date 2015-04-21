@@ -11,7 +11,7 @@ AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
 APP_SID = 'APZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
 
 CALLER_ID = '+12345678901'
-CLIENT = 'sldfjsdofoehf'
+CLIENT = 'mark'
 
 app = Flask(__name__)
 
@@ -51,8 +51,8 @@ def call():
   caller_id = os.environ.get("CALLER_ID", CALLER_ID)
   if not from_client:
     # PSTN -> client
-    resp.dial(to, callerId=from_value)
-    #resp.dial(callerId=from_value).client(CLIENT)
+    #resp.dial(to, callerId=from_value)
+    resp.dial(callerId=from_value).client(CLIENT)
   elif to.startswith("client:"):
     # client -> client
     resp.dial(callerId=from_value).client(to[7:])
