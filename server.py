@@ -4,14 +4,14 @@ from twilio.util import TwilioCapability
 import twilio.twiml
 
 # Account Sid and Auth Token can be found in your account dashboard
-ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+ACCOUNT_SID = 'AC89b43a19ff07a20bc53bb5c89875a4df'
+AUTH_TOKEN = 'c0c194e38f47b2d4522954f4dd5a2bd2'
 
 # TwiML app outgoing connections will use
-APP_SID = 'APZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
+APP_SID = 'AP6e55fc74a99f437e420d3e08b32c212d'
 
-CALLER_ID = '+12345678901'
-CLIENT = 'mark'
+CALLER_ID = ''
+CLIENT = ''
 
 app = Flask(__name__)
 
@@ -44,6 +44,8 @@ def call():
   """           routed to client named CLIENT                  """
   resp = twilio.twiml.Response()
   from_value = request.values.get('From')
+  CALLER_ID = request.values.get('Caller')
+  CLIENT = request.values.get('Client')
   to = request.values.get('To')
   if not (from_value and to):
     return str(resp.say("Invalid request"))
