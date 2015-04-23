@@ -44,8 +44,6 @@ def call():
   """           routed to client named CLIENT                  """
   resp = twilio.twiml.Response()
   from_value = request.values.get('From')
-  CALLER_ID = request.values.get('Caller')
-  CLIENT = request.values.get('Client')
   to = request.values.get('To')
   if not (from_value and to):
     return str(resp.say("Invalid request"))
