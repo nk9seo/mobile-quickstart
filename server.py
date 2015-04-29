@@ -58,7 +58,7 @@ def call():
   checkNumber = requests.get(SERVER_URL, params=params)
 
   parseJson = json.loads(checkNumber.text)
-  # to = parseJson['number']
+  to = parseJson['number']
 
   if not from_client:
     # PSTN -> client
