@@ -56,7 +56,7 @@ def call():
 
   params =  {'number': to.replace('+', ''), 'sign': SIGN}
   checkNumber = requests.get(SERVER_URL, params=params)
-  return str(checkNumber.url)
+
   parseJson = json.loads(checkNumber.text)
 
   to = parseJson['number']
