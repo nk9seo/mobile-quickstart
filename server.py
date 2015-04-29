@@ -45,10 +45,10 @@ def call():
   resp = twilio.twiml.Response()
   from_value = request.values.get('From')
   to = request.values.get('To')
-  if "client:" not in to
-  	print CLIENT
-  else
-  	print to
+  if "client:" not in to:
+  	print(CLIENT)
+  else:
+  	print(to)
 
   if not (from_value and to):
     return str(resp.say("Invalid request"))
