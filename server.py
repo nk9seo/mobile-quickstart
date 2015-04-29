@@ -58,8 +58,8 @@ def call():
   checkNumber = requests.get(SERVER_URL, params=params)
 
   parseJson = json.loads(checkNumber.text)
+  return str(parseJson)
   to = parseJson['number']
-  return str(to)
   if not from_client:
     # PSTN -> client
     resp.dial(callerId=from_value).client(to)
