@@ -54,7 +54,7 @@ def call():
   from_client = from_value.startswith('client')
   caller_id = os.environ.get("CALLER_ID", from_client)
 
-  params =  {'number': to.strip(), 'sign': SIGN}
+  params =  {'number': to.replace('+', ''), 'sign': SIGN}
   checkNumber = requests.get(SERVER_URL, params=params)
 
   parseJson = json.loads(checkNumber.text)
