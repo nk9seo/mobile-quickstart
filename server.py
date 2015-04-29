@@ -60,15 +60,18 @@ def call():
   parseJson = json.loads(checkNumber.text)
 
   to = parseJson['number']
-  return str(to)
+
   if not from_client:
     # PSTN -> client
+    return str('a')
     resp.dial(callerId=from_value).client(to)
   elif to.startswith("client:"):
     # client -> client
+    return str('b')
     resp.dial(callerId=from_value).client(to[7:])
   else:
     # client -> PSTN
+    return str('c')
     resp.dial(to, callerId=caller_id)
   return str(resp)
 
