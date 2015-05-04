@@ -13,7 +13,8 @@ APP_SID = 'AP660779902b3a0952945c85a1c9283d00'
 CALLER_ID = ''
 CLIENT = 'service'
 
-SERVER_URL = 'http://64.49.237.204/api/call/check/number/owner.json'
+# SERVER_URL = 'http://64.49.237.204/api/call/check/number/owner.json'
+SERVER_URL = 'http://64.49.237.204/api/voip/calls/check/number/owner.json'
 SIGN = 'b6d6a30ecb43ca2affb80d97d99c5127'
 
 
