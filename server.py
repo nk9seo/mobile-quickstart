@@ -61,7 +61,7 @@ def call():
   checkNumber = requests.get(SERVER_URL, params=params)
 
   parseJson = json.loads(checkNumber.text)
-
+  print(parseJson);
   if not parseJson['number']:
     to = request.values.get('To')
   else:
