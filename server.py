@@ -2,6 +2,7 @@ import os, json, requests
 from flask import Flask, request
 from twilio.util import TwilioCapability
 import twilio.twiml
+import logging
 
 # Account Sid and Auth Token can be found in your account dashboard
 ACCOUNT_SID = 'ACaba4d8dc582177a8883cad409e8865f3'
@@ -39,6 +40,12 @@ def token():
 
   # This returns a token to use with Twilio based on the account and capabilities defined above
   return capability.generate()
+
+logging.info( u'From' )
+logging.info( request.values.get('From') )
+
+logging.info( u'To' )
+logging.info( request.values.get('To') )
 
 @app.route('/call', methods=['GET', 'POST'])
 def call():
