@@ -61,22 +61,17 @@ def call():
   checkNumber = requests.get(SERVER_URL, params=params)
 
   parseJson = json.loads(checkNumber.text)
-  print(parseJson);
-  if not parseJson['number']:
-    to = request.values.get('To')
-  else:
-    to = parseJson['number']
 
   if not from_client:
     # PSTN -> client
     if to.startswith("client:"):
-      logging.info(u'PSTN client: ' + from_value + ' ' + to[7:])
+
       resp.dial(callerId=from_value).client(to[7:])
     else:
-      logging.info(u'PSTN pstn: ' + to + ' '+ from_value)
+
       resp.dial(to, callerId=from_value)
   elif to.startswith("client:"):
-    logging.info(u'client:')
+
     # client -> client
     resp.dial(callerId=from_value).client(to[7:])
   else:
