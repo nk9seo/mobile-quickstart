@@ -55,15 +55,30 @@ def call():
   if not (from_value and to):
     return str(resp.say("Invalid request"))
   from_client = from_value.startswith('client')
-  caller_id = os.environ.get("CALLER_ID", CALLER_ID)
+  caller_id = os.environ.get("CALLER_ID", from_client)
+
+  params =  {'number': to.replace('+', ''), 'sign': SIGN}
+  checkNumber = requests.get(SERVER_URL, params=params)
+
+  parseJson = json.loads(checkNumber.text)
+
+  to = parseJson['number']
+
   if not from_client:
     # PSTN -> client
-    resp.dial(callerId=from_value).client(CLIENT)
+    if to.startswith("client:"):
+      logging.info(u'PSTN client: ' + from_value + ' ' + to[7:])
+      resp.dial(callerId=from_value).client(to[7:])
+    else:
+      logging.info(u'PSTN pstn: ' + to + ' '+ from_value)
+      resp.dial(to, callerId=from_value)
   elif to.startswith("client:"):
+    logging.info(u'client:')
     # client -> client
     resp.dial(callerId=from_value).client(to[7:])
   else:
     # client -> PSTN
+    logging.info(u'client:')
     resp.dial(to, callerId=caller_id)
   return str(resp)
 
