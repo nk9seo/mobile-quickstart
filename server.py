@@ -41,11 +41,6 @@ def token():
   # This returns a token to use with Twilio based on the account and capabilities defined above
   return capability.generate()
 
-logging.info( u'From' )
-logging.info( request.values.get('From') )
-
-logging.info( u'To' )
-logging.info( request.values.get('To') )
 
 @app.route('/call', methods=['GET', 'POST'])
 def call():
@@ -72,14 +67,18 @@ def call():
   if not from_client:
     # PSTN -> client
     if to.startswith("client:"):
+      logging.info(u'PSTN client:')
       resp.dial(callerId=from_value).client(to[7:])
     else:
+      logging.info(u'PSTN pstn:')
       resp.dial(to, callerId=from_value)
   elif to.startswith("client:"):
+    logging.info(u'client:')
     # client -> client
     resp.dial(callerId=from_value).client(to[7:])
   else:
     # client -> PSTN
+    logging.info(u'pstn:')
     resp.dial(to, callerId=caller_id)
   return str(resp)
 
