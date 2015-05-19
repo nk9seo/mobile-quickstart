@@ -70,13 +70,10 @@ def call():
       resp.dial(request.values.get('To'), callerId=from_value)
     else:
       if to.startswith("client:"):
-        logging.info(u'PSTN client: ' + from_value + ' ' + to[7:])
         resp.dial(callerId=from_value).client(to[7:])
       else:
-        logging.info(u'PSTN pstn: ' + to + ' '+ from_value)
         resp.dial(to, callerId=from_value)
   elif to.startswith("client:"):
-    logging.info(u'client:')
     # client -> client
     resp.dial(callerId=from_value).client(to[7:])
   else:
